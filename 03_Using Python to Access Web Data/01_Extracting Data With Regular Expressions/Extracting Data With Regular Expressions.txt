@@ -1,0 +1,15 @@
+text = input("Input file name here:" )
+handle = open(text)
+numlist = list()
+sum = 0
+import re
+for line in handle:
+    line = line.rstrip()
+    numbers = re.findall("([0-9]+)", line)
+    if len(numbers) < 1:
+        continue
+    for x in numbers:
+        numlist.append(int(x))
+for i in numlist:
+    sum = i + sum
+print(sum)

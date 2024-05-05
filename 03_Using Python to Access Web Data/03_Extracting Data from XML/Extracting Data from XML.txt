@@ -1,0 +1,28 @@
+In this assignment you will write a Python program that promps for a URL, read the XML data from that URL using urllib and then parse and extract the comment counts from the XML data, compute the sum of the numbers in the file.
+Url to the data:https://py4e-data.dr-chuck.net/comments_1990943.xml
+
+import urllib.request, urllib.parse, urllib.error
+import xml.etree.ElementTree as ET
+import ssl
+
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+address = input("Input url:") 
+data = urllib.request.urlopen(address)
+data1 = data.read()
+print(len(data1))
+#print(data1.decode())
+tree = ET.fromstring(data1)
+counts = tree.findall('comments/comment')
+count = 0
+sum = 0
+for item in counts:
+    count = count + 1
+    number = int(item.find("count").text)
+    sum = sum + number
+print("Retrieving",address)
+print("Count:",count)
+print("Sum:",sum)
+
